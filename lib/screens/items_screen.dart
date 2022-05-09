@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:smartlock_gui/models/inventory_models.dart';
 import 'package:smartlock_gui/screens/empty_category_screen.dart';
@@ -97,9 +99,11 @@ class _ItemsScreenState extends State<ItemsScreen> {
                                 showDialog(
                                   context: context,
                                   builder: (_) => AlertDialog(
-                                    title: const Text("Notify Low Stock"),
+                                    title: const Text(
+                                      "Notify Low Stock",
+                                    ),
                                     content: Padding(
-                                      padding: EdgeInsets.all(10),
+                                      padding: const EdgeInsets.all(10),
                                       child: RichText(
                                         textAlign: TextAlign.left,
                                         text: TextSpan(
