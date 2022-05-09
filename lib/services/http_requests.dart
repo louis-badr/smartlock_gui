@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:smartlock_gui/models/inventory_models.dart';
 
@@ -15,7 +17,7 @@ class ApiService {
 
     var response = await client.get(uri);
     if (response.statusCode == 200) {
-      var json = response.body;
+      var json = utf8.decode(response.bodyBytes);
       return categoryModelFromJson(json);
     } else {
       print(response.statusCode);
@@ -31,7 +33,7 @@ class ApiService {
 
     var response = await client.get(uri);
     if (response.statusCode == 200) {
-      var json = response.body;
+      var json = utf8.decode(response.bodyBytes);
       return itemModelFromJson(json);
     } else {
       print(response.statusCode);

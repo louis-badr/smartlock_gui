@@ -25,18 +25,22 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   getCategoriesData() async {
     categories = await ApiService().getCategories(widget.category_id);
-    if (categories!.isEmpty) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ItemsScreen(widget.category_id!)),
-      );
-    } else if (categories != null) {
-      // sort by category title alphabetical order
-      categories!.sort((a, b) => a.title.compareTo(b.title));
-      setState(() {
-        isLoaded = true;
-      });
+    if (categories != null) {
+      if (categories!.isEmpty) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ItemsScreen(widget.category_id!)),
+        );
+      } else {
+        // sort by category title alphabetical order
+        categories!.sort((a, b) => a.title.compareTo(b.title));
+        setState(
+          () {
+            isLoaded = true;
+          },
+        );
+      }
     }
   }
 
@@ -46,33 +50,36 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       appBar: AppBar(
         title: const Text("Categories"),
       ),
-      body: Visibility(
-        visible: isLoaded,
-        child: ListView.builder(
-          itemCount: categories?.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                title: Text(categories![index].title),
-                trailing: const Icon(Icons.chevron_right_rounded),
-                leading: IconButton(
-                    onPressed: () {
-                      print("${categories![index].title} info");
-                    },
-                    icon: const Icon(Icons.info_outline_rounded)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CategoriesScreen(
-                            category_id: categories![index].id)),
-                  );
-                },
-              ),
-            );
-          },
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Visibility(
+          visible: isLoaded,
+          child: ListView.builder(
+            itemCount: categories?.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: ListTile(
+                  title: Text(categories![index].title),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  leading: IconButton(
+                      onPressed: () {
+                        print("${categories![index].title} info");
+                      },
+                      icon: const Icon(Icons.info_outline_rounded)),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CategoriesScreen(
+                              category_id: categories![index].id)),
+                    );
+                  },
+                ),
+              );
+            },
+          ),
+          replacement: const Center(child: CircularProgressIndicator()),
         ),
-        replacement: const Center(child: CircularProgressIndicator()),
       ),
     );
   }

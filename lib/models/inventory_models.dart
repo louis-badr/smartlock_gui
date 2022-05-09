@@ -56,7 +56,7 @@ class ItemModel {
   });
 
   String title;
-  String? description;
+  String? description = "No description for this item";
   double? price;
   String? link;
   int? category_id;

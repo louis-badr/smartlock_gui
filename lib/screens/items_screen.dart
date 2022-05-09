@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartlock_gui/models/inventory_models.dart';
+import 'package:smartlock_gui/screens/empty_category_screen.dart';
 import 'package:smartlock_gui/services/http_requests.dart';
 
 class ItemsScreen extends StatefulWidget {
@@ -25,11 +26,20 @@ class _ItemsScreenState extends State<ItemsScreen> {
   getItemsData() async {
     items = await ApiService().getItems(widget.category_id);
     if (items != null) {
-      // sort by item title alphabetical order
-      items!.sort((a, b) => a.title.compareTo(b.title));
-      setState(() {
-        isLoaded = true;
-      });
+      if (items!.isEmpty) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => EmptyCategoryScreen()),
+        );
+      } else {
+        // sort by item title alphabetical order
+        items!.sort((a, b) => a.title.compareTo(b.title));
+        setState(
+          () {
+            isLoaded = true;
+          },
+        );
+      }
     }
   }
 
@@ -39,37 +49,114 @@ class _ItemsScreenState extends State<ItemsScreen> {
       appBar: AppBar(
         title: const Text("Items"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             int count = 0;
             Navigator.of(context).popUntil((_) => count++ >= 2);
           },
         ),
       ),
-      body: Visibility(
-        visible: isLoaded,
-        child: ListView.builder(
-          itemCount: items?.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                title: Text(items![index].title),
-                trailing: IconButton(
-                  onPressed: () {
-                    print("Notify");
-                  },
-                  icon: Icon(Icons.shopping_cart_rounded),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Visibility(
+          visible: isLoaded,
+          child: ListView.builder(
+            itemCount: items?.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: ExpansionTile(
+                  title: Text(items![index].title),
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(25),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: RichText(
+                              textAlign: TextAlign.left,
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  const TextSpan(text: "Description\n\n"),
+                                  TextSpan(
+                                      text: items![index].description,
+                                      style:
+                                          const TextStyle(color: Colors.grey)),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, bottom: 10, left: 25, right: 10),
+                            child: IconButton(
+                              color: Colors.redAccent,
+                              onPressed: () {
+                                print("Notify");
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    title: const Text("Notify Low Stock"),
+                                    content: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: RichText(
+                                        textAlign: TextAlign.left,
+                                        text: TextSpan(
+                                          style: DefaultTextStyle.of(context)
+                                              .style,
+                                          children: <TextSpan>[
+                                            const TextSpan(
+                                                text:
+                                                    "Do you want to notify low stock for\n"),
+                                            TextSpan(
+                                                text: items![index].title,
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            const TextSpan(
+                                                text:
+                                                    " ?\n This action will create an order request.")
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: TextButton(
+                                          onPressed: () {
+                                            print("Request Order");
+                                            // http post request
+                                          },
+                                          child: const Text(
+                                            "Yes",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.redAccent,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  barrierDismissible: true,
+                                );
+                              },
+                              icon: const Icon(Icons.shopping_cart_rounded),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                leading: IconButton(
-                    onPressed: () {
-                      print("${items![index].title} info");
-                    },
-                    icon: const Icon(Icons.info_outline_rounded)),
-              ),
-            );
-          },
+              );
+            },
+          ),
+          replacement: const Center(child: CircularProgressIndicator()),
         ),
-        replacement: const Center(child: CircularProgressIndicator()),
       ),
     );
   }
