@@ -11,14 +11,8 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: <Widget>[
+          const HomeScreenCarousel(),
           Expanded(
-            child: Container(
-              color: Colors.grey,
-              child: const HomeScreenCarousel(),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(45),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -33,12 +27,12 @@ class HomeScreen extends StatelessWidget {
                   },
                   child: const Text(
                     "INVENTORY",
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),
                     fixedSize:
-                        Size(MediaQuery.of(context).size.width / 2.5, 70),
+                        Size(MediaQuery.of(context).size.width / 2.5, 60),
                   ),
                 ),
                 IconButton(

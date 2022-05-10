@@ -48,7 +48,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Categories"),
+        title: const Text("CATEGORIES"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),

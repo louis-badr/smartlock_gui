@@ -49,7 +49,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Items"),
+        title: const Text("ITEMS"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
