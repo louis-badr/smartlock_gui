@@ -1,18 +1,17 @@
 import 'dart:convert';
 
+import 'package:smartlock_gui/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:smartlock_gui/models/inventory_models.dart';
-
-const String baseURL = "https://dvic.devinci.fr/smart_inventory/api";
 
 class ApiService {
   Future<List<CategoryModel>?> getCategories(int? category_id) async {
     var client = http.Client();
     var uri;
     if (category_id != null) {
-      uri = Uri.parse('$baseURL/categories/subcategories/$category_id/');
+      uri = Uri.parse('$baseUrlSI/categories/subcategories/$category_id/');
     } else {
-      uri = Uri.parse('$baseURL/categories/root/');
+      uri = Uri.parse('$baseUrlSI/categories/root/');
     }
 
     var response = await client.get(uri);
@@ -28,7 +27,7 @@ class ApiService {
     var client = http.Client();
     var uri;
     if (category_id != null) {
-      uri = Uri.parse('$baseURL/categories/$category_id/items/');
+      uri = Uri.parse('$baseUrlSI/categories/$category_id/items/');
     }
 
     var response = await client.get(uri);

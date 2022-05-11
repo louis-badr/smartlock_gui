@@ -17,8 +17,16 @@ final List<Widget> imageSliders = imgList
     )
     .toList();
 
-class HomeScreenCarousel extends StatelessWidget {
+class HomeScreenCarousel extends StatefulWidget {
   const HomeScreenCarousel({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreenCarousel> createState() => _HomeScreenCarouselState();
+}
+
+class _HomeScreenCarouselState extends State<HomeScreenCarousel> {
+  int _current = 0;
+  final CarouselController _controller = CarouselController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,51 +35,89 @@ class HomeScreenCarousel extends StatelessWidget {
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(35), bottomRight: Radius.circular(35)),
-        child: Stack(
-          children: <Widget>[
-            CarouselSlider(
-              items: imageSliders,
-              options: CarouselOptions(
-                autoPlay: true,
-                autoPlayInterval: const Duration(seconds: 15),
-                height: MediaQuery.of(context).size.height,
-                viewportFraction: 1,
+        child: GestureDetector(
+          onDoubleTap: () {
+            print("Display QR Code");
+          },
+          child: Stack(
+            children: <Widget>[
+              CarouselSlider(
+                items: imageSliders,
+                options: CarouselOptions(
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 15),
+                    height: MediaQuery.of(context).size.height,
+                    viewportFraction: 1,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _current = index;
+                      });
+                    }),
               ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height / 10,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(140, 0, 0, 0),
-                    Color.fromARGB(0, 0, 0, 0)
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+              Container(
+                height: MediaQuery.of(context).size.height / 10,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromARGB(140, 0, 0, 0),
+                      Color.fromARGB(0, 0, 0, 0)
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 25),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
-                  Text(
-                    "TAP FOR QR CODE",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
+              Padding(
+                padding: const EdgeInsets.only(top: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    Text(
+                      "DOUBLE TAP FOR",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Icon(
-                    Icons.touch_app_rounded,
-                    color: Colors.white,
-                    size: 40,
-                  ),
-                ],
+                    Padding(
+                      padding: EdgeInsets.only(left: 5),
+                      child: Icon(
+                        Icons.qr_code_scanner_rounded,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: imgList.asMap().entries.map((entry) {
+                        return GestureDetector(
+                          onTap: () => _controller.animateToPage(entry.key),
+                          child: Container(
+                            width: 12.0,
+                            height: 12.0,
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 8.0,
+                              horizontal: 4.0,
+                            ),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(
+                                    _current == entry.key ? 0.9 : 0.4)),
+                          ),
+                        );
+                      }).toList(),
+                    )),
+              ),
+            ],
+          ),
         ),
       ),
     );
