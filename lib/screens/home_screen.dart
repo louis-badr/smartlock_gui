@@ -1,8 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smartlock_gui/components/home_screen_carousel.dart';
 import 'package:smartlock_gui/screens/categories_screen.dart';
-import 'package:smartlock_gui/screens/items_screen.dart';
 import 'package:smartlock_gui/screens/settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,7 +9,9 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: <Widget>[
+          // Image carousel
           const HomeScreenCarousel(),
+          // Buttons under the carousel
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
