@@ -9,4 +9,5 @@ const String baseUrlSI = "https://dvic.devinci.fr/smart_inventory/api";
 // for Smart Lock V2, screen is 480(W)x800(H)
 const double carouselHeightRatio = 0.85;
 
+// defines radius of bottom corners of the carousel
 const double clipRadiusCarousel = 35;
