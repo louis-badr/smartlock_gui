@@ -14,6 +14,8 @@ class SettingsScreen extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
               child: ListTile(
                 title: const Text("Dark Mode"),
                 leading: const Icon(Icons.dark_mode_rounded),

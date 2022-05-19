@@ -3,6 +3,9 @@
 // base URL for the Smart Inventory API
 const String baseUrlSI = "https://dvic.devinci.fr/smart_inventory/api";
 
+// GitHub repo URL
+const String gitRepoURL = "https://github.com/louis-badr/SMART-LOCK-GUI";
+
 // CAROUSEL OPTIONS
 
 // sets height for the home screen slider by ratio of screen length

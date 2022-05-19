@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smartlock_gui/models/home_screen_slide_model.dart';
 import 'package:smartlock_gui/constants.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:smartlock_gui/components/qr_code_displayer.dart';
 
 // will be generated from the API
 // each slide has an image and optionally a link that can be accessed with a QR code if the image is double tapped
@@ -45,27 +46,7 @@ class _HomeScreenCarouselState extends State<HomeScreenCarousel> {
           (item) => GestureDetector(
             onDoubleTap: () {
               if (item.qr_url != null) {
-                showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
-                    backgroundColor: Colors.white,
-                    elevation: 0,
-                    content: SizedBox(
-                      height: 250,
-                      width: 250,
-                      child: FittedBox(
-                        child: QrImage(
-                          data: item.qr_url!,
-                          version: QrVersions.auto,
-                          size: 250,
-                        ),
-                      ),
-                    ),
-                  ),
-                  barrierDismissible: true,
-                );
+                showDialogQR(context, item.qr_url!);
               }
             },
             child: Stack(
@@ -80,45 +61,46 @@ class _HomeScreenCarouselState extends State<HomeScreenCarousel> {
                 ),
                 Visibility(
                   visible: item.qr_url != null,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 10,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromARGB(140, 0, 0, 0),
-                          Color.fromARGB(0, 0, 0, 0)
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: item.qr_url != null,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        Text(
-                          "DOUBLE TAP FOR",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        height: MediaQuery.of(context).size.height / 9,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color.fromARGB(125, 0, 0, 0),
+                              Color.fromARGB(0, 0, 0, 0)
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 5),
-                          child: Icon(
-                            Icons.qr_code_scanner_rounded,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                        )
-                      ],
-                    ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[
+                            Text(
+                              "DOUBLE TAP FOR",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5),
+                              child: Icon(
+                                Icons.qr_code_scanner_rounded,
+                                color: Colors.white,
+                                size: 40,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -151,28 +133,26 @@ class _HomeScreenCarouselState extends State<HomeScreenCarousel> {
             // Page circles indicator
             Align(
               alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: slidesList.asMap().entries.map((entry) {
-                    return GestureDetector(
-                      onTap: () => _controller.animateToPage(entry.key),
-                      child: Container(
-                        width: 12.0,
-                        height: 12.0,
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 8.0,
-                          horizontal: 4.0,
-                        ),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white.withOpacity(
-                                _current == entry.key ? 0.9 : 0.4)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: slidesList.asMap().entries.map((entry) {
+                  return GestureDetector(
+                    //onTap: () => _controller.animateToPage(entry.key),
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      width: 12.0,
+                      height: 12.0,
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 4.0,
                       ),
-                    );
-                  }).toList(),
-                ),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white
+                              .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                    ),
+                  );
+                }).toList(),
               ),
             ),
           ],

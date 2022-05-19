@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smartlock_gui/components/home_screen_carousel.dart';
+import 'package:smartlock_gui/components/qr_code_displayer.dart';
 import 'package:smartlock_gui/screens/categories_screen.dart';
 import 'package:smartlock_gui/screens/settings_screen.dart';
+import 'package:smartlock_gui/constants.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -14,7 +16,7 @@ class HomeScreen extends StatelessWidget {
           // Buttons under the carousel
           Expanded(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
@@ -35,17 +37,62 @@ class HomeScreen extends StatelessWidget {
                         Size(MediaQuery.of(context).size.width / 2.5, 60),
                   ),
                 ),
+                const SizedBox(
+                  width: 35,
+                ),
                 IconButton(
-                  iconSize: 60,
                   onPressed: () {
-                    print("Settings");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SettingsScreen()),
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
+                        actionsPadding:
+                            const EdgeInsets.only(right: 20, bottom: 10),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SettingsScreen()),
+                              );
+                            },
+                            child: const Text(
+                              "Settings",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              shape: const StadiumBorder(),
+                              primary: Colors.red,
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              showDialogQR(context, gitRepoURL);
+                            },
+                            child: const Text(
+                              "GitHub",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              shape: const StadiumBorder(),
+                            ),
+                          ),
+                        ],
+                        title: const Text("Thanks for using Smart Lock V2 !"),
+                        content: const Text(
+                            "For more information on the project, visit our GitHub page or contact me at :\nlouis.badr@edu.devinci.fr"),
+                      ),
+                      barrierDismissible: true,
                     );
                   },
-                  icon: const Icon(Icons.settings),
-                ),
+                  icon: const Icon(Icons.info_outline_rounded),
+                  iconSize: 45,
+                )
               ],
             ),
           )

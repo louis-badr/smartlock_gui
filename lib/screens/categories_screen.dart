@@ -58,6 +58,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             itemCount: categories?.length,
             itemBuilder: (context, index) {
               return Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
                 child: ListTile(
                   title: Text(categories![index].title),
                   trailing: const Icon(Icons.chevron_right_rounded),

@@ -66,6 +66,8 @@ class _ItemsScreenState extends State<ItemsScreen> {
             itemCount: items?.length,
             itemBuilder: (context, index) {
               return Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
                 child: ExpansionTile(
                   title: Text(items![index].title),
                   children: <Widget>[
