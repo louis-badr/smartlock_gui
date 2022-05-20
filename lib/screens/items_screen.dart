@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:smartlock_gui/models/inventory_models.dart';
 import 'package:smartlock_gui/screens/empty_category_screen.dart';
@@ -66,8 +64,6 @@ class _ItemsScreenState extends State<ItemsScreen> {
             itemCount: items?.length,
             itemBuilder: (context, index) {
               return Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
                 child: ExpansionTile(
                   title: Text(items![index].title),
                   children: <Widget>[

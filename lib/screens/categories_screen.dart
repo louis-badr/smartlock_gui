@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smartlock_gui/models/inventory_models.dart';
 import 'package:smartlock_gui/screens/items_screen.dart';
@@ -35,6 +36,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       } else {
         // sort by category title alphabetical order
         categories!.sort((a, b) => a.title.compareTo(b.title));
+        categories!.insert(0, CategoryModel(title: "Others", id: 0));
         setState(
           () {
             isLoaded = true;
@@ -51,34 +53,47 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         title: const Text("CATEGORIES"),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
         child: Visibility(
           visible: isLoaded,
-          child: ListView.builder(
-            itemCount: categories?.length,
-            itemBuilder: (context, index) {
-              return Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                child: ListTile(
-                  title: Text(categories![index].title),
-                  trailing: const Icon(Icons.chevron_right_rounded),
-                  leading: IconButton(
-                      onPressed: () {
-                        print("${categories![index].title} info");
-                      },
-                      icon: const Icon(Icons.info_outline_rounded)),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CategoriesScreen(
-                              category_id: categories![index].id)),
+          child: Column(
+            children: <Widget>[
+              const Card(
+                child: TextField(
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search_rounded),
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: categories?.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: ListTile(
+                        title: Text(categories![index].title),
+                        trailing: const Icon(Icons.chevron_right_rounded),
+                        leading: IconButton(
+                            onPressed: () {
+                              print("${categories![index].title} info");
+                            },
+                            icon: const Icon(Icons.info_outline_rounded)),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CategoriesScreen(
+                                    category_id: categories![index].id)),
+                          );
+                        },
+                      ),
                     );
                   },
                 ),
-              );
-            },
+              ),
+            ],
           ),
           replacement: const Center(child: CircularProgressIndicator()),
         ),

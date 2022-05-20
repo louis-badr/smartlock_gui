@@ -11,10 +11,22 @@ class SmartLockGUIApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return AdaptiveTheme(
       light: ThemeData(
+        useMaterial3: true,
         brightness: Brightness.light,
+        cardTheme: CardTheme(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
       ),
       dark: ThemeData(
+        useMaterial3: true,
         brightness: Brightness.dark,
+        cardTheme: CardTheme(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
       ),
       initial: AdaptiveThemeMode.light,
       builder: (theme, darkTheme) => MaterialApp(

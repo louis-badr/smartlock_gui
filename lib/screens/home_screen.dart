@@ -29,10 +29,14 @@ class HomeScreen extends StatelessWidget {
                   },
                   child: const Text(
                     "INVENTORY",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    shape: const StadiumBorder(),
+                    primary: Colors.blue,
                     fixedSize:
                         Size(MediaQuery.of(context).size.width / 2.5, 60),
                   ),
@@ -51,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         actionsPadding:
-                            const EdgeInsets.only(right: 20, bottom: 10),
+                            const EdgeInsets.only(right: 20, bottom: 5),
                         actions: <Widget>[
                           ElevatedButton(
                             onPressed: () {
@@ -63,7 +67,10 @@ class HomeScreen extends StatelessWidget {
                             },
                             child: const Text(
                               "Settings",
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                             style: ElevatedButton.styleFrom(
                               shape: const StadiumBorder(),
@@ -76,10 +83,14 @@ class HomeScreen extends StatelessWidget {
                             },
                             child: const Text(
                               "GitHub",
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                             style: ElevatedButton.styleFrom(
                               shape: const StadiumBorder(),
+                              primary: Colors.blue,
                             ),
                           ),
                         ],
