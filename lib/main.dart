@@ -31,7 +31,8 @@ class SmartLockGUIApp extends StatelessWidget {
       dark: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
-        textTheme: GoogleFonts.robotoTextTheme(),
+        textTheme: GoogleFonts.robotoTextTheme(
+            ThemeData(brightness: Brightness.dark).textTheme),
         cardTheme: CardTheme(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
