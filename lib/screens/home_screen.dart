@@ -38,8 +38,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   style: ElevatedButton.styleFrom(
                     primary: Colors.blue,
-                    fixedSize:
-                        Size(MediaQuery.of(context).size.width / 2.5, 60),
+                    fixedSize: Size(MediaQuery.of(context).size.width / 3, 60),
                   ),
                 ),
                 const SizedBox(

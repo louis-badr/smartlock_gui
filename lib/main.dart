@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:smartlock_gui/screens/home_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(SmartLockGUIApp());
@@ -13,6 +14,7 @@ class SmartLockGUIApp extends StatelessWidget {
       light: ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
+        textTheme: GoogleFonts.robotoTextTheme(),
         dialogTheme: const DialogTheme(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
@@ -29,6 +31,7 @@ class SmartLockGUIApp extends StatelessWidget {
       dark: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
+        textTheme: GoogleFonts.robotoTextTheme(),
         cardTheme: CardTheme(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
