@@ -28,17 +28,19 @@ class HomeScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  child: const Text(
-                    "INVENTORY",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  child: const Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      "INVENTORY",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
                     primary: Colors.blue,
-                    fixedSize: Size(MediaQuery.of(context).size.width / 3, 60),
                   ),
                 ),
                 const SizedBox(
