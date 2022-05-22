@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:smartlock_gui/components/home_screen_carousel.dart';
 import 'package:smartlock_gui/components/qr_code_displayer.dart';
+import 'package:smartlock_gui/constants.dart';
 import 'package:smartlock_gui/screens/categories_screen.dart';
 import 'package:smartlock_gui/screens/settings_screen.dart';
-import 'package:smartlock_gui/constants.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +21,11 @@ class HomeScreen extends StatelessWidget {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    print("Inventory");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CategoriesScreen()),
+                        builder: (context) => CategoriesScreen(),
+                      ),
                     );
                   },
                   child: const Text(
@@ -49,11 +50,6 @@ class HomeScreen extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (_) => AlertDialog(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(25),
-                          ),
-                        ),
                         actionsPadding:
                             const EdgeInsets.only(right: 20, bottom: 5),
                         actions: <Widget>[
@@ -68,13 +64,10 @@ class HomeScreen extends StatelessWidget {
                             child: const Text(
                               "Settings",
                               style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                                  fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             style: ElevatedButton.styleFrom(
                               shape: const StadiumBorder(),
-                              primary: Colors.red,
                             ),
                           ),
                           ElevatedButton(
