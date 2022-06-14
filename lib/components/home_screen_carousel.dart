@@ -44,7 +44,7 @@ class _HomeScreenCarouselState extends State<HomeScreenCarousel> {
     final List<Widget> imageSliders = slidesList
         .map(
           (item) => GestureDetector(
-            onDoubleTap: () {
+            onLongPress: () {
               if (item.qr_url != null) {
                 showDialogQR(context, item.qr_url!);
               }
@@ -82,7 +82,7 @@ class _HomeScreenCarouselState extends State<HomeScreenCarousel> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const <Widget>[
                             Text(
-                              "DOUBLE TAP FOR",
+                              "LONG PRESS FOR",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

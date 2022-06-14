@@ -45,7 +45,7 @@ class SmartLockGUIApp extends StatelessWidget {
         title: 'Smart Lock GUI',
         theme: theme,
         darkTheme: darkTheme,
-        home: HomeScreen(),
+        home: const HomeScreen(),
       ),
     );
   }
