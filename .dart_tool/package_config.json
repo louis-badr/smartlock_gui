@@ -326,6 +326,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "sse_client",
+      "rootUri": "file:///home/louis/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/sse_client-0.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "stack_trace",
       "rootUri": "file:///home/louis/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.10.0",
       "packageUri": "lib/",
@@ -404,7 +410,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-06-14T13:09:24.925212Z",
+  "generated": "2022-07-08T14:35:11.902347Z",
   "generator": "pub",
-  "generatorVersion": "2.17.1"
+  "generatorVersion": "2.17.5"
 }

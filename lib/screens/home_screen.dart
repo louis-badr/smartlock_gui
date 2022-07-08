@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:smartlock_gui/components/home_screen_carousel.dart';
+import 'package:smartlock_gui/components/lock_snackbar.dart';
 import 'package:smartlock_gui/components/qr_code_displayer.dart';
 import 'package:smartlock_gui/constants.dart';
 import 'package:smartlock_gui/screens/categories_screen.dart';
 import 'package:smartlock_gui/screens/settings_screen.dart';
+import 'package:sse_client/sse_client.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final sseClient =
+        SseClient.connect(Uri.parse('http://localhost:8000/stream-rfid'));
+    sseClient.stream?.listen((event) {
+      print(event.toString());
+      int authCode = int.parse(event
+          .toString()
+          .substring(event.toString().length - 3, event.toString().length));
+      showLockStateSnackBar(context, authCode);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smartlock_gui/models/inventory_models.dart';
 import 'package:smartlock_gui/screens/items_screen.dart';
-import 'package:smartlock_gui/services/http_requests.dart';
+import 'package:smartlock_gui/services/http_inventory_requests.dart';
 
 class CategoriesScreen extends StatefulWidget {
   // if null the screen will list all the root categories, if not, the sub categories of the associated category
@@ -25,7 +24,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   }
 
   getCategoriesData() async {
-    categories = await ApiService().getCategories(widget.category_id);
+    categories = await getCategories(widget.category_id);
     if (categories != null) {
       if (categories!.isEmpty) {
         Navigator.push(

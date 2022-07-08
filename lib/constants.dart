@@ -13,4 +13,4 @@ const String gitRepoURL = "https://github.com/louis-badr/SMART-LOCK-GUI";
 const double carouselHeightRatio = 0.85;
 
 // defines radius of bottom corners of the carousel
-const double clipRadiusCarousel = 35;
+const double clipRadiusCarousel = 30;

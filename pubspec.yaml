@@ -52,10 +52,11 @@ dev_dependencies:
   qr_flutter: ^4.0.0
   google_fonts: ^3.0.0
   flutter_native_splash: ^2.2.3+1
+  sse_client: ^0.1.0
 
-flutter_native_splash:
-  color: "#000000"
-  image: assets/SL_logo.png
+#flutter_native_splash:
+  #color: "#000000"
+  #image: assets/SL_logo.png
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

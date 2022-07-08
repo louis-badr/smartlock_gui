@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartlock_gui/models/inventory_models.dart';
 import 'package:smartlock_gui/screens/empty_category_screen.dart';
-import 'package:smartlock_gui/services/http_requests.dart';
+import 'package:smartlock_gui/services/http_inventory_requests.dart';
 
 class ItemsScreen extends StatefulWidget {
   //  items parent category's id
@@ -24,7 +24,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
   }
 
   getItemsData() async {
-    items = await ApiService().getItems(widget.category_id);
+    items = await getItems(widget.category_id);
     if (items != null) {
       if (items!.isEmpty) {
         Navigator.push(
