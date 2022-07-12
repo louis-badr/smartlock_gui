@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:smartlock_gui/components/home_screen_carousel.dart';
 import 'package:smartlock_gui/components/lock_snackbar.dart';
@@ -18,8 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    final sseClient =
-        SseClient.connect(Uri.parse('http://localhost:8000/stream-rfid'));
+    final sseClient = SseClient.connect(
+        Uri.parse('http://localhost:8000/stream/rfid?unlock=true'));
     sseClient.stream?.listen((event) {
       print(event.toString());
       int authCode = int.parse(event

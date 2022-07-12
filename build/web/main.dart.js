@@ -65057,7 +65057,7 @@ A.uy.prototype={
 ap(){return new A.JR(B.m)}}
 A.JR.prototype={
 aD(){this.b4()
-A.aoi(A.iy("http://localhost:8000/stream-rfid",0,null)).a.a54(new A.a6d(this))},
+A.aoi(A.iy("http://localhost:8000/stream/rfid?unlock=true",0,null)).a.a54(new A.a6d(this))},
 I(a,b){var s=null,r=t.D
 return A.Gm(s,A.tz(A.a([B.zD,A.SS(A.pM(A.a([A.aci(B.I5,new A.a6b(b),A.Si(s,s,s,s,s,s,s,s,s,s,s,B.d6,s,s,s,s,s,s)),B.K2,A.m4(s,B.mU,45,new A.a6c(b),s)],r),B.aG,B.d5,B.aT))],r),B.aG,B.b_,B.aT))}}
 A.a6d.prototype={
