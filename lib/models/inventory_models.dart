@@ -1,5 +1,33 @@
 import 'dart:convert';
 
+// CABINET MODEL
+
+List<CabinetModel> cabinetModelFromJson(String str) => List<CabinetModel>.from(
+    json.decode(str).map((x) => CabinetModel.fromJson(x)));
+
+String cabinetModelToJson(List<CabinetModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class CabinetModel {
+  CabinetModel({
+    this.description,
+    required this.id,
+  });
+
+  String? description;
+  int id;
+
+  factory CabinetModel.fromJson(Map<String, dynamic> json) => CabinetModel(
+        description: json["description"],
+        id: json["id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "description": description,
+        "id": id,
+      };
+}
+
 // CATEGORY MODEL
 
 List<CategoryModel> categoryModelFromJson(String str) =>

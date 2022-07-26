@@ -1,5 +1,8 @@
 // API SERVICE SETTINGS
 
+// base URL for localhost communication
+const String baseUrlLocal = "http://localhost:8000";
+
 // base URL for the Smart Inventory API
 const String baseUrlSI = "https://dvic.devinci.fr/smart_inventory/api";
 

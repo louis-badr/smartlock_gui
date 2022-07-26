@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:smartlock_gui/constants.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:smartlock_gui/models/inventory_models.dart';
 
 Future<List<CategoryModel>?> getCategories(int? category_id) async {
-  var client = http.Client();
+  var client = Client();
   var uri;
   if (category_id != null) {
     uri = Uri.parse('$baseUrlSI/categories/subcategories/$category_id/');
@@ -23,7 +23,7 @@ Future<List<CategoryModel>?> getCategories(int? category_id) async {
 }
 
 Future<List<ItemModel>?> getItems(int category_id) async {
-  var client = http.Client();
+  var client = Client();
   var uri;
   if (category_id != null) {
     uri = Uri.parse('$baseUrlSI/categories/$category_id/items/');

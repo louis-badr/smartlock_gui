@@ -91,63 +91,42 @@ class _ItemsScreenState extends State<ItemsScreen> {
                             padding: const EdgeInsets.only(
                                 top: 10, bottom: 10, left: 25, right: 10),
                             child: IconButton(
-                              color: Colors.redAccent,
-                              onPressed: () {
-                                print("Notify");
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                    title: const Text(
-                                      "Notify Low Stock",
-                                    ),
-                                    content: Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: RichText(
-                                        textAlign: TextAlign.left,
-                                        text: TextSpan(
-                                          style: DefaultTextStyle.of(context)
-                                              .style,
-                                          children: <TextSpan>[
-                                            const TextSpan(
-                                                text:
-                                                    "Do you want to notify low stock for\n"),
-                                            TextSpan(
-                                                text: items![index].title,
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            const TextSpan(
-                                                text:
-                                                    " ?\n This action will create an order request.")
-                                          ],
-                                        ),
+                                color: Colors.redAccent,
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                      title: const Text(
+                                        "Notify Low Stock",
                                       ),
-                                    ),
-                                    actions: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: TextButton(
-                                          onPressed: () {
-                                            print("Request Order");
-                                            // http post request
-                                          },
-                                          child: const Text(
-                                            "Yes",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.redAccent,
-                                            ),
+                                      content: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: RichText(
+                                          textAlign: TextAlign.left,
+                                          text: TextSpan(
+                                            style: DefaultTextStyle.of(context)
+                                                .style,
+                                            children: <TextSpan>[
+                                              const TextSpan(
+                                                  text:
+                                                      "Scan your card to notify low stock for\n"),
+                                              TextSpan(
+                                                  text: items![index].title,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              const TextSpan(
+                                                  text:
+                                                      "\nThis action will send an order request to staff members.")
+                                            ],
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  barrierDismissible: true,
-                                );
-                              },
-                              icon: const Icon(Icons.shopping_cart_rounded),
-                            ),
+                                    ),
+                                    barrierDismissible: true,
+                                  );
+                                },
+                                icon: const Icon(Icons.notifications)),
                           ),
                         ],
                       ),

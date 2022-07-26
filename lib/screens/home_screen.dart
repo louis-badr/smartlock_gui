@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:smartlock_gui/components/door_open_warning_dialog.dart';
 import 'package:smartlock_gui/components/home_screen_carousel.dart';
 import 'package:smartlock_gui/components/lock_snackbar.dart';
 import 'package:smartlock_gui/components/qr_code_displayer.dart';
@@ -17,20 +18,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    final sseClient = SseClient.connect(
-        Uri.parse('http://localhost:8000/stream/rfid?unlock=true'));
-    sseClient.stream?.listen((event) {
-      print(event.toString());
-      int authCode = int.parse(event
-          .toString()
-          .substring(event.toString().length - 3, event.toString().length));
-      showLockStateSnackBar(context, authCode);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,9 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ],
-                        title: const Text("Thanks for using Smart Lock V2 !"),
+                        title: const Text("Thanks for using Smart Lock V2"),
                         content: const Text(
-                            "For more information on the project, visit our GitHub page or contact me at :\nlouis.badr@edu.devinci.fr"),
+                            "This project is still in development, for more information visit our GitHub page.\nTo report an issue send an email to louis.badr@edu.devinci.fr"),
                       ),
                       barrierDismissible: true,
                     );

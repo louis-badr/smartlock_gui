@@ -35,7 +35,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       } else {
         // sort by category title alphabetical order
         categories!.sort((a, b) => a.title.compareTo(b.title));
-        categories!.insert(0, CategoryModel(title: "Others", id: 0));
+        //categories!.insert(0, CategoryModel(title: "Others", id: 0));
         setState(
           () {
             isLoaded = true;
@@ -55,46 +55,31 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
         child: Visibility(
           visible: isLoaded,
-          child: Column(
-            children: <Widget>[
-              const Card(
-                child: TextField(
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search_rounded),
-                    border: OutlineInputBorder(borderSide: BorderSide.none),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: categories?.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: ListTile(
-                        title: Text(categories![index].title),
-                        trailing: const Icon(Icons.chevron_right_rounded),
-                        leading: IconButton(
-                            onPressed: () {
-                              print("${categories![index].title} info");
-                            },
-                            icon: const Icon(Icons.info_outline_rounded)),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CategoriesScreen(
-                                    category_id: categories![index].id)),
-                          );
-                        },
-                      ),
+          replacement: const Center(child: CircularProgressIndicator()),
+          child: ListView.builder(
+            itemCount: categories?.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: ListTile(
+                  title: Text(categories![index].title),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  leading: IconButton(
+                      onPressed: () {
+                        print("${categories![index].title} info");
+                      },
+                      icon: const Icon(Icons.info_outline_rounded)),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CategoriesScreen(
+                              category_id: categories![index].id)),
                     );
                   },
                 ),
-              ),
-            ],
+              );
+            },
           ),
-          replacement: const Center(child: CircularProgressIndicator()),
         ),
       ),
     );
