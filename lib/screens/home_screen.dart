@@ -39,6 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     );
                   },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue,
+                  ),
                   child: const Padding(
                     padding: EdgeInsets.all(10),
                     child: Text(
@@ -50,68 +53,75 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue,
-                  ),
                 ),
                 const SizedBox(
                   width: 35,
                 ),
                 IconButton(
                   onPressed: () {
+                    Timer? _timer;
                     showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        actionsPadding:
-                            const EdgeInsets.only(right: 20, bottom: 5),
-                        actions: <Widget>[
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SettingsScreen()),
-                              );
-                            },
-                            child: const Text(
-                              "Settings",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (BuildContext builderContext) {
+                          _timer = Timer(const Duration(seconds: 10), () {
+                            Navigator.of(context)
+                                .popUntil(ModalRoute.withName('/'));
+                          });
+                          return AlertDialog(
+                            actionsPadding:
+                                const EdgeInsets.only(right: 20, bottom: 5),
+                            actions: <Widget>[
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/settings');
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: const StadiumBorder(),
+                                ),
+                                child: const Text(
+                                  "Settings",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  showDialogQR(context, gitRepoURL);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: const StadiumBorder(),
+                                  primary: Colors.blue,
+                                ),
+                                child: const Text(
+                                  "GitHub",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                            title: const Text(
+                              "Thanks for using Smart Lock V2",
                             ),
-                            style: ElevatedButton.styleFrom(
-                              shape: const StadiumBorder(),
+                            content: const Text(
+                              "This project is still in development, for more information visit our GitHub page.\nTo report an issue send an email to louis.badr@edu.devinci.fr",
                             ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              showDialogQR(context, gitRepoURL);
-                            },
-                            child: const Text(
-                              "GitHub",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              shape: const StadiumBorder(),
-                              primary: Colors.blue,
-                            ),
-                          ),
-                        ],
-                        title: const Text("Thanks for using Smart Lock V2"),
-                        content: const Text(
-                            "This project is still in development, for more information visit our GitHub page.\nTo report an issue send an email to louis.badr@edu.devinci.fr"),
-                      ),
-                      barrierDismissible: true,
-                    );
+                          );
+                        }).then((val) {
+                      if (_timer!.isActive) {
+                        _timer!.cancel();
+                      }
+                    });
                   },
                   icon: const Icon(Icons.info_outline_rounded),
                   iconSize: 45,
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
     );

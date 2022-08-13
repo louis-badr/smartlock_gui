@@ -15,7 +15,7 @@ class CabinetModel {
   });
 
   String? description;
-  int id;
+  String id;
 
   factory CabinetModel.fromJson(Map<String, dynamic> json) => CabinetModel(
         description: json["description"],

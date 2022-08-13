@@ -17,3 +17,8 @@ const double carouselHeightRatio = 0.85;
 
 // defines radius of bottom corners of the carousel
 const double clipRadiusCarousel = 30;
+
+// INACTIVITY HANDLER
+
+// in seconds
+const int maxInactivity = 15;

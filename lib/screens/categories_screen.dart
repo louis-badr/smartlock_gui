@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:smartlock_gui/constants.dart';
 import 'package:smartlock_gui/models/inventory_models.dart';
 import 'package:smartlock_gui/screens/items_screen.dart';
 import 'package:smartlock_gui/services/http_inventory_requests.dart';
+import 'package:smartlock_gui/services/inactivity_handler.dart';
 
 class CategoriesScreen extends StatefulWidget {
   // if null the screen will list all the root categories, if not, the sub categories of the associated category
@@ -21,6 +23,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   void initState() {
     super.initState();
     getCategoriesData();
+    returnToHomeScreen(context, maxInactivity);
   }
 
   getCategoriesData() async {

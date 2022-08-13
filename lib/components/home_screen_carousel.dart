@@ -4,6 +4,7 @@ import 'package:smartlock_gui/models/home_screen_slide_model.dart';
 import 'package:smartlock_gui/constants.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:smartlock_gui/components/qr_code_displayer.dart';
+import 'package:intl/intl.dart';
 
 // will be generated from the API
 // each slide has an image and optionally a link that can be accessed with a QR code if the image is double tapped
@@ -43,68 +44,56 @@ class _HomeScreenCarouselState extends State<HomeScreenCarousel> {
     // list of the widgets to be displayed on the carousel
     final List<Widget> imageSliders = slidesList
         .map(
-          (item) => GestureDetector(
-            onLongPress: () {
-              if (item.qr_url != null) {
-                showDialogQR(context, item.qr_url!);
-              }
-            },
-            child: Stack(
-              children: <Widget>[
-                SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  child: Image.network(
-                    item.img_url,
-                    fit: BoxFit.cover,
-                  ),
+          (item) => Stack(
+            alignment: Alignment.bottomCenter,
+            children: <Widget>[
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Image.network(
+                  item.img_url,
+                  fit: BoxFit.cover,
                 ),
-                Visibility(
-                  visible: item.qr_url != null,
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        height: MediaQuery.of(context).size.height / 9,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(125, 0, 0, 0),
-                              Color.fromARGB(0, 0, 0, 0)
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
+              ),
+              if (item.qr_url != null)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 35),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showDialogQR(context, item.qr_url!);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.black.withOpacity(0.4),
+                      side: BorderSide(
+                        width: 1,
+                        color: Colors.white.withOpacity(0.9),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const <Widget>[
+                        Text(
+                          "QR CODE",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 25),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[
-                            Text(
-                              "LONG PRESS FOR",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5),
-                              child: Icon(
-                                Icons.qr_code_scanner_rounded,
-                                color: Colors.white,
-                                size: 40,
-                              ),
-                            ),
-                          ],
+                        Padding(
+                          padding: EdgeInsets.only(left: 5),
+                          child: Icon(
+                            Icons.qr_code_scanner_rounded,
+                            color: Colors.white,
+                            size: 30,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ],
-            ),
+            ],
           ),
         )
         .toList();
@@ -136,23 +125,47 @@ class _HomeScreenCarouselState extends State<HomeScreenCarousel> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: slidesList.asMap().entries.map((entry) {
-                  return GestureDetector(
-                    //onTap: () => _controller.animateToPage(entry.key),
-                    child: Container(
-                      alignment: Alignment.bottomCenter,
-                      width: 12.0,
-                      height: 12.0,
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 4.0,
-                      ),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white
-                              .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                  return Container(
+                    alignment: Alignment.bottomCenter,
+                    width: 12.0,
+                    height: 12.0,
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 10.0,
+                      horizontal: 4.0,
                     ),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white
+                            .withOpacity(_current == entry.key ? 0.9 : 0.4)),
                   );
                 }).toList(),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(14),
+                child: Container(
+                  decoration: ShapeDecoration(
+                    shape: StadiumBorder(
+                      side: BorderSide(
+                          width: 1, color: Colors.white.withOpacity(0.9)),
+                    ),
+                    color: Colors.black.withOpacity(0.4),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 14),
+                  child: Text(
+                    DateFormat('HH:mm').format(
+                      DateTime.now(),
+                    ),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

@@ -60,6 +60,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
         padding: const EdgeInsets.all(10),
         child: Visibility(
           visible: isLoaded,
+          replacement: const Center(child: CircularProgressIndicator()),
           child: ListView.builder(
             itemCount: items?.length,
             itemBuilder: (context, index) {
@@ -136,7 +137,6 @@ class _ItemsScreenState extends State<ItemsScreen> {
               );
             },
           ),
-          replacement: const Center(child: CircularProgressIndicator()),
         ),
       ),
     );

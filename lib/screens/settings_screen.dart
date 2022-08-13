@@ -3,6 +3,8 @@ import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartlock_gui/constants.dart';
+import 'package:smartlock_gui/models/inventory_models.dart';
+import 'package:smartlock_gui/services/http_inventory_requests.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool isLoaded = false;
+  String selectedValue = 'demo';
 
   bool? _enableCSWarning;
   bool? _enableCSAlarm;
@@ -47,10 +50,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  List<CabinetModel>? cabinets;
+  getCabinetsData() async {
+    cabinets = await getAllCabinets();
+    if (cabinets != null) {
+      // sort by cabinet ID alphabetical order
+      cabinets!.sort((a, b) => a.id.compareTo(b.id));
+      //categories!.insert(0, CategoryModel(title: "Others", id: 0));
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     getSharedPrefs();
+    getCabinetsData();
   }
 
   @override
@@ -117,6 +131,67 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ],
                   ),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  title: const Text("Change cabinet ID"),
+                  leading: const Icon(Icons.tag_rounded),
+                  trailing: Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: Text(
+                      selectedValue,
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text("Select the current cabinet's ID"),
+                        content: SizedBox(
+                          width: double.maxFinite,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: cabinets?.length,
+                              itemBuilder: (context, index) {
+                                return RadioListTile(
+                                  value: cabinets![index].id,
+                                  groupValue: selectedValue,
+                                  title: Text(cabinets![index].id),
+                                  subtitle: cabinets![index].description != null
+                                      ? Text(cabinets![index].description!)
+                                      : null,
+                                  onChanged: (value) => setState(
+                                    () {
+                                      selectedValue = value.toString();
+                                    },
+                                  ),
+                                );
+                              }),
+                        ),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            onPressed: () => Navigator.pop(context, 'Ok'),
+                            style: ElevatedButton.styleFrom(
+                              shape: const StadiumBorder(),
+                              primary: Colors.blue,
+                            ),
+                            child: const Text(
+                              "Ok",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
               Card(

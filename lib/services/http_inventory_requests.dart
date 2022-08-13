@@ -4,6 +4,20 @@ import 'package:smartlock_gui/constants.dart';
 import 'package:http/http.dart';
 import 'package:smartlock_gui/models/inventory_models.dart';
 
+Future<List<CabinetModel>?> getAllCabinets() async {
+  var client = Client();
+  var uri;
+  uri = Uri.parse('$baseUrlSI/cabinets/');
+
+  var response = await client.get(uri);
+  if (response.statusCode == 200) {
+    var json = utf8.decode(response.bodyBytes);
+    return cabinetModelFromJson(json);
+  } else {
+    print(response.statusCode);
+  }
+}
+
 Future<List<CategoryModel>?> getCategories(int? category_id) async {
   var client = Client();
   var uri;
