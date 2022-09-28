@@ -12,19 +12,12 @@ final List<HomeScreenSlideModel> slidesList = [
   HomeScreenSlideModel(
     id: 1,
     img_url:
-        'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
+        'https://image.noelshack.com/fichiers/2022/38/5/1663943906-group-4.png',
   ),
   HomeScreenSlideModel(
     id: 2,
-    img_url:
-        'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-    qr_url:
-        'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-  ),
-  HomeScreenSlideModel(
-    img_url:
-        'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80',
-    id: 3,
+    img_url: 'https://image.noelshack.com/fichiers/2022/38/5/1663928167-a0.png',
+    qr_url: 'https://dvic.devinci.fr/events/2022-09-baudouin-saintyves',
   ),
 ];
 
@@ -52,18 +45,18 @@ class _HomeScreenCarouselState extends State<HomeScreenCarousel> {
                 width: MediaQuery.of(context).size.width,
                 child: Image.network(
                   item.img_url,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fitHeight,
                 ),
               ),
               if (item.qr_url != null)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 35),
+                  padding: const EdgeInsets.only(bottom: 20),
                   child: ElevatedButton(
                     onPressed: () {
                       showDialogQR(context, item.qr_url!);
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.black.withOpacity(0.4),
+                      backgroundColor: Colors.black.withOpacity(0.4),
                       side: BorderSide(
                         width: 1,
                         color: Colors.white.withOpacity(0.9),

@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.blue,
+                    backgroundColor: Colors.blue,
                   ),
                   child: const Padding(
                     padding: EdgeInsets.all(10),
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: const StadiumBorder(),
-                                  primary: Colors.blue,
+                                  backgroundColor: Colors.blue,
                                 ),
                                 child: const Text(
                                   "GitHub",
